@@ -1,0 +1,12 @@
+{
+  "name": "bot-siempre-activo",
+  "version": "1.0.0",
+  "description": "Bot para mantener pagina web abierta",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "puppeteer": "^22.0.0"
+  }
+}
