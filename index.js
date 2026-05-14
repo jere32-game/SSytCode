@@ -1,13 +1,24 @@
 const puppeteer = require('puppeteer');
+const http = require('http');
 
+// 1. Servidor web básico obligatorio para que Render mantenga el servicio vivo
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Bot ejecutándose correctamente');
+}).listen(PORT, () => {
+  console.log(`Servidor HTTP escuchando en el puerto ${PORT}`);
+});
+
+// 2. Lógica de tu bot de Puppeteer
 async function iniciarBot() {
   try {
     const browser = await puppeteer.launch({
-      headless: true, // Obligatorio para servidores
+      headless: true,
       args: [
         '--no-sandbox', 
         '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage' // Evita caídas por falta de memoria
+        '--disable-dev-shm-usage'
       ]
     });
     
@@ -15,7 +26,6 @@ async function iniciarBot() {
     console.log("Abriendo la página web...");
     await page.goto('https://jere32-game.github.io/-botss/', { waitUntil: 'networkidle2' });
     
-    // Recarga cada 5 minutos para simular actividad constante
     setInterval(async () => {
       try {
         console.log("Recargando página para mantener actividad...");
